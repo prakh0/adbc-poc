@@ -12,10 +12,14 @@ import (
 
 func main() {
 	var drv drivermgr.Driver
+	uri := os.Getenv("DB_URI")
+	if uri == "" {
+		log.Fatal("DB_URI environment variable is not set")
+	}
 
 	db, err := drv.NewDatabase(map[string]string{
 		"driver": "mysql",
-		"uri":    "root:MySQL_pass01@tcp(34.28.25.89:3306)/ettaflow",
+		"uri":    uri,
 	})
 	if err != nil {
 		log.Fatal(err)
